@@ -1,8 +1,6 @@
 package com.example.gruppprojekt.controller;
 
-import com.example.gruppprojekt.model.Book;
 import com.example.gruppprojekt.model.Category;
-import com.example.gruppprojekt.model.Users;
 import com.example.gruppprojekt.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +21,7 @@ public class CategoryController {
     }
     @PostMapping("/addCategories")
     public ResponseEntity<List<Category>> addCategories(@RequestBody List<Category> categories) {
-        return ResponseEntity.ok(categoryService.addUsers(categories));
+        return ResponseEntity.ok(categoryService.addCategories(categories));
     }
 
     @GetMapping("/all")
@@ -36,13 +34,8 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.deleteCategoryById(id));
     }
     @PostMapping("/update/{id}")
-    public ResponseEntity<Object> updateCategory(@PathVariable String id, @RequestBody Category category) {
-        try {
-            return ResponseEntity.ok(categoryService.updateCategory(id,category));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<Object> updateCategory(@RequestBody Category category, @PathVariable String id) {
+            return ResponseEntity.ok(categoryService.updateCategory(category,id));
     }
 
 }
