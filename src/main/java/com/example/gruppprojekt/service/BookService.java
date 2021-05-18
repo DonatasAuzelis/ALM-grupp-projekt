@@ -1,5 +1,6 @@
 package com.example.gruppprojekt.service;
 
+import com.example.gruppprojekt.model.Author;
 import com.example.gruppprojekt.model.Book;
 import com.example.gruppprojekt.repo.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,13 @@ public class BookService {
         } else {
             throw new ClassNotFoundException();
         }
+    }
+
+    public List<Book> addBooks(List<Book> books) {
+        return bookRepo.saveAll(books);
+    }
+
+    public List<Book> getBooksByAuthor(Author author) {
+        return bookRepo.findBooksByAuthor(author);
     }
 }

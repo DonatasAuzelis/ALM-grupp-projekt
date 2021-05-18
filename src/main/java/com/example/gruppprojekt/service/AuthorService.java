@@ -23,7 +23,6 @@ public class AuthorService {
     public String deleteAuthorById(String id) {
         Author author=authorRepo.findById(id).get();
         authorRepo.deleteById(id);
-
         return "Author deleted with " + id + " and named: "+ author.getFirstName() + ", " + author.getLastName();
     }
 
@@ -32,12 +31,16 @@ public class AuthorService {
         if(newAuthor.isPresent()){
             newAuthor.get().setFirstName(author.getFirstName());
             newAuthor.get().setLastName(author.getLastName());
-            newAuthor.get().setDateOfbirth(author.getDateOfbirth());
+            newAuthor.get().setDateOfBirth(author.getDateOfBirth());
            return  authorRepo.save(newAuthor.get());
         }
         else{
             throw new ClassNotFoundException();
         }
 
+    }
+
+    public List<Author> addAuthors(List<Author> authors) {
+        return authorRepo.saveAll(authors);
     }
 }

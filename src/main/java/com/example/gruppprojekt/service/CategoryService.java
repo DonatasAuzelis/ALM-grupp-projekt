@@ -46,4 +46,8 @@ public class CategoryService {
            throw new ClassNotFoundException();
         }
     }
+
+    public List<Category> addUsers(List<Category> categories) {
+        return categoryRepo.saveAll(categories);
+    }
 }
