@@ -2,7 +2,6 @@ package com.example.gruppprojekt.controller;
 
 
 import com.example.gruppprojekt.model.Author;
-import com.example.gruppprojekt.model.Book;
 import com.example.gruppprojekt.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,14 +35,13 @@ public class AuthorController {
         return ResponseEntity.ok(authorService.deleteAuthorById(id));
     }
 
-    @PostMapping("/update/{id}")
-    public ResponseEntity<Object> updateAuthor(@PathVariable String id, @RequestBody Author author) {
-
+    @PutMapping("/update")
+    public ResponseEntity<Object> updateAuthor(@RequestBody Author author) {
         try {
-            return ResponseEntity.ok(authorService.updateAuthor(id, author));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.ok(authorService.updateAuthor(author));
+        } catch (Exception e) {
+           return ResponseEntity.badRequest().body(e.getMessage());
         }
+
     }
 }
