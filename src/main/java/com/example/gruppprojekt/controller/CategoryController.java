@@ -2,6 +2,7 @@ package com.example.gruppprojekt.controller;
 
 import com.example.gruppprojekt.model.Book;
 import com.example.gruppprojekt.model.Category;
+import com.example.gruppprojekt.model.Users;
 import com.example.gruppprojekt.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,10 @@ public class CategoryController {
     @PostMapping("/add")
     public ResponseEntity<Category> addCategory(@RequestBody Category category) {
         return ResponseEntity.ok(categoryService.addCategory(category));
+    }
+    @PostMapping("/addCategories")
+    public ResponseEntity<List<Category>> addCategories(@RequestBody List<Category> categories) {
+        return ResponseEntity.ok(categoryService.addUsers(categories));
     }
 
     @GetMapping("/all")

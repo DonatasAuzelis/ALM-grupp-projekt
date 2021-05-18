@@ -2,6 +2,7 @@ package com.example.gruppprojekt.controller;
 
 
 import com.example.gruppprojekt.model.Author;
+import com.example.gruppprojekt.model.Book;
 import com.example.gruppprojekt.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,10 @@ public class AuthorController {
     @PostMapping("/add")
     public ResponseEntity<Author> addAuthor(@RequestBody Author author) {
         return ResponseEntity.ok(authorService.addAuthor(author));
+    }
+    @PostMapping("/addAuthors")
+    public ResponseEntity<List<Author>> addAuthors(@RequestBody List<Author> Authors) {
+        return ResponseEntity.ok(authorService.addAuthors(Authors));
     }
 
     @GetMapping("/all")

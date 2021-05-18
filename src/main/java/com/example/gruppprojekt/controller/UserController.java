@@ -1,5 +1,6 @@
 package com.example.gruppprojekt.controller;
 
+import com.example.gruppprojekt.model.Author;
 import com.example.gruppprojekt.model.Book;
 import com.example.gruppprojekt.model.Users;
 import com.example.gruppprojekt.service.BookService;
@@ -18,7 +19,7 @@ import java.util.List;
  * Copyright: MIT
  */
 @RestController
-@RequestMapping("/Users")
+@RequestMapping("/user")
 public class UserController {
 
 
@@ -28,6 +29,11 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<Users> addUser(@RequestBody Users user) {
         return ResponseEntity.ok(userService.addUser(user));
+    }
+
+    @PostMapping("/addUsers")
+    public ResponseEntity<List<Users>> addUsers(@RequestBody List<Users> users) {
+        return ResponseEntity.ok(userService.addUsers(users));
     }
 
     @GetMapping("/all")
@@ -43,6 +49,5 @@ public class UserController {
     @PostMapping("/update")
     public ResponseEntity<Object> updateUser(@RequestBody Users user) {
         return ResponseEntity.ok(userService.updateUser(user));
-
     }
 }

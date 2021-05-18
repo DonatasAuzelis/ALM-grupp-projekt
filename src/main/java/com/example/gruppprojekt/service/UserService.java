@@ -35,4 +35,8 @@ public class UserService {
     public Users updateUser(Users user) {
         return repository.save(user);
     }
+
+    public List<Users> addUsers(List<Users> users) {
+        return repository.saveAll(users);
+    }
 }

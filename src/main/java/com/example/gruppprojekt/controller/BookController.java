@@ -1,5 +1,6 @@
 package com.example.gruppprojekt.controller;
 
+import com.example.gruppprojekt.model.Author;
 import com.example.gruppprojekt.model.Book;
 import com.example.gruppprojekt.repo.BookRepo;
 import com.example.gruppprojekt.service.BookService;
@@ -22,6 +23,11 @@ public class BookController {
         return ResponseEntity.ok(bookService.addBook(book));
     }
 
+    @PostMapping("/addBooks")
+    public ResponseEntity<List<Book>> addBooks(@RequestBody List<Book> books) {
+        return ResponseEntity.ok(bookService.addBooks(books));
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Book>> getAllBooks() {
         return ResponseEntity.ok(bookService.getAllBooks());
@@ -41,6 +47,11 @@ public class BookController {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/getBooksByAuthor")
+    public ResponseEntity<Object> getBooksByAuthor(@RequestBody Author author ){
+        return ResponseEntity.ok(bookService.getBooksByAuthor(author));
     }
 
 }

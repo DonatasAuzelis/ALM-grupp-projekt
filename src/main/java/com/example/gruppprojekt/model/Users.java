@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 /**
  * Created by Ashkan Amiri
  * Date:  2021-05-18
@@ -22,4 +24,5 @@ public class Users extends Person{
     @Id
     private String id;
     private Long personalNumber;
+    private List<Book> books;
 }
