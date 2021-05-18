@@ -10,12 +10,12 @@ package com.example.gruppprojekt.model;
 public class Person {
     private String firstName;
     private String lastName;
-    private String dateOfbirth;
+    private String dateOfBirth;
 
-    public Person(String firstName, String lastName, String dateOfbirth) {
+    public Person(String firstName, String lastName, String dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateOfbirth = dateOfbirth;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Person() {
@@ -37,11 +37,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public String getDateOfbirth() {
-        return dateOfbirth;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDateOfbirth(String dateOfbirth) {
-        this.dateOfbirth = dateOfbirth;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
