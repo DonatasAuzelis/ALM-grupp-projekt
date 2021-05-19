@@ -4,10 +4,13 @@ package com.example.gruppprojekt.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.time.LocalDate;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,4 +19,8 @@ import java.util.List;
 public class Author extends Person {
     @Id
     private String id;
+    @CreatedDate
+    private LocalDate createdDate;
+    @LastModifiedDate
+    private LocalDate lastModifiedDate;
 }
