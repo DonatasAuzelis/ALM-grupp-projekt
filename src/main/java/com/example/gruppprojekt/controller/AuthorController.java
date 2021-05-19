@@ -20,6 +20,10 @@ public class AuthorController {
     public ResponseEntity<Author> addAuthor(@RequestBody Author author) {
         return ResponseEntity.ok(authorService.addAuthor(author));
     }
+    @PostMapping("/addAuthors")
+    public ResponseEntity<List<Author>> addAuthors(@RequestBody List<Author> Authors) {
+        return ResponseEntity.ok(authorService.addAuthors(Authors));
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<Author>> getAllAuthors() {
@@ -31,14 +35,13 @@ public class AuthorController {
         return ResponseEntity.ok(authorService.deleteAuthorById(id));
     }
 
-    @PostMapping("/update/{id}")
-    public ResponseEntity<Object> updateAuthor(@PathVariable String id, @RequestBody Author author) {
-
+    @PutMapping("/update")
+    public ResponseEntity<Object> updateAuthor(@RequestBody Author author) {
         try {
-            return ResponseEntity.ok(authorService.updateAuthor(id, author));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.ok(authorService.updateAuthor(author));
+        } catch (Exception e) {
+           return ResponseEntity.badRequest().body(e.getMessage());
         }
+
     }
 }
