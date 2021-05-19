@@ -21,4 +21,19 @@ class BookServiceTest {
     @Test
     void updateBook() {
     }
+
+    @Test
+    void addBooks() {
+
+    }
+
+    @Test
+    void getBooksByAuthor() {
+
+    }
+
+    @Test
+    void getBookByTitle() {
+
+    }
 }

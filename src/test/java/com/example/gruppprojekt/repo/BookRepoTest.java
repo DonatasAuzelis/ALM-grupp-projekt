@@ -11,6 +11,6 @@ class BookRepoTest {
     }
 
     @Test
-    void findBooksByTitle() {
+    void findBookByTitle() {
     }
 }
