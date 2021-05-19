@@ -32,7 +32,7 @@ public class AuthorService {
         if(newAuthor.isPresent()){
             newAuthor.get().setFirstName(author.getFirstName());
             newAuthor.get().setLastName(author.getLastName());
-            newAuthor.get().setDateOfbirth(author.getDateOfbirth());
+            newAuthor.get().setDateOfBirth(author.getDateOfBirth());
            return  authorRepo.save(newAuthor.get());
         }
         else{

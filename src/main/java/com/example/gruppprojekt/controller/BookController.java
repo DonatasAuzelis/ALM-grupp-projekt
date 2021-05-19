@@ -1,14 +1,16 @@
 package com.example.gruppprojekt.controller;
 
 import com.example.gruppprojekt.model.Book;
-import com.example.gruppprojekt.repo.BookRepo;
 import com.example.gruppprojekt.service.BookService;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+/**
+ * Controller with CRUD- methods
+ */
 
 @RestController
 @RequestMapping("/book")
@@ -17,6 +19,11 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    /**
+     *
+     * @param book
+     * @return
+     */
     @PostMapping("/add")
     public ResponseEntity<Book> addBook(@RequestBody Book book) {
         return ResponseEntity.ok(bookService.addBook(book));
