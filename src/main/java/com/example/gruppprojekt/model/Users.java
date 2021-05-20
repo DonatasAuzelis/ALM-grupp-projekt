@@ -2,6 +2,7 @@ package com.example.gruppprojekt.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -26,6 +27,7 @@ import java.util.stream.Stream;
  * Project: ALM-grupp-projekt
  * Copyright: MIT
  */
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -47,7 +49,17 @@ public class Users extends Person  {
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
-
+    public Users(String firstName, String lastName, String dateOfBirth, String id, Long personalNumber,
+                 String password, String email, List<Book> books, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+        super(firstName, lastName, dateOfBirth);
+        this.id = id;
+        this.personalNumber = personalNumber;
+        this.password = password;
+        this.email = email;
+        this.books = books;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+    }
 
 /* ********************************************************************************************************
     public boolean checkNull() throws IllegalAccessException {
