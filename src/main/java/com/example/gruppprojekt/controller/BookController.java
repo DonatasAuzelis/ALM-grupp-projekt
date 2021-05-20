@@ -25,8 +25,12 @@ public class BookController {
      * @return book to be added
      */
     @PostMapping("/add")
-    public ResponseEntity<Book> addBook(@RequestBody Book book) {
-        return ResponseEntity.ok(bookService.addBook(book));
+    public ResponseEntity<Object> addBook(@RequestBody Book book) {
+        try {
+            return ResponseEntity.ok(bookService.addBook(book));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     /**
@@ -55,7 +59,11 @@ public class BookController {
      */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteBookById(@PathVariable String id) {
-        return ResponseEntity.ok(bookService.deleteBookById(id));
+        try {
+            return ResponseEntity.ok(bookService.deleteBookById(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     /**
@@ -91,8 +99,12 @@ public class BookController {
      * @return book by a specified title
      */
     @GetMapping("/getBookByTitle/{title}")
-    public ResponseEntity<Book> getBookByTitle(@PathVariable String title) {
-        return ResponseEntity.ok(bookService.getBookByTitle(title));
+    public ResponseEntity<Object> getBookByTitle(@PathVariable String title) {
+        try {
+            return ResponseEntity.ok(bookService.getBookByTitle(title));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }
