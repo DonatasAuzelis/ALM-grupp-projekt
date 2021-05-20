@@ -5,10 +5,12 @@ import com.example.gruppprojekt.repo.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class CategoryService {
@@ -16,82 +18,97 @@ public class CategoryService {
     @Autowired
     CategoryRepo categoryRepo;
 
-    /**
-     * adds category category
-     * @param category - Object
-     * @return - Object
-     */
 
-    public Category addCategory(Category category) {
-        category.setCreatedDate(LocalDate.now());
-        return categoryRepo.save(category);
+    /**
+     *
+     * @param newCategory
+     * @return
+     */
+    public Category addCategory(Category newCategory) {
+        Category existingCategory = categoryRepo.findByName(newCategory.getName());
+
+        if (existingCategory != null) {
+            throw new IllegalArgumentException("Category already exists");
+        } else {
+            newCategory.setBooks(new ArrayList<>());
+            return categoryRepo.save(newCategory);
+        }
+
 
 
     }
 
-    /**
-     * update category
-     * @param category - Object
-     * @return - Object
-     */
 
 
-    public Category updateCategory(Category category, String id) {
-        category.setLastModifiedDate(LocalDate.now());
+    public Category updateCategory(Category updatedCategory, String id) {
+        System.out.println(id); //kontrolleras senare
+        System.out.println(id.getClass());
+        Category existingCategoryWithSameId = categoryRepo.findById(updatedCategory.getId()).orElse(null); //funkar inte via pathvariable
+        Category existingCategoryWithSameName = categoryRepo.findByName(updatedCategory.getName());
 
 
-        return categoryRepo.save(category);
+        if (existingCategoryWithSameId != null && existingCategoryWithSameName == null) {
+            updatedCategory.setId(existingCategoryWithSameId.getId());
+            updatedCategory.setBooks(existingCategoryWithSameId.getBooks());
+            updatedCategory.setLastModifiedDate(LocalDate.now());
+            updatedCategory.setCreatedDate(existingCategoryWithSameId.getCreatedDate());
+            return categoryRepo.save(updatedCategory);
+        } else {
+            throw new IllegalArgumentException("No category with that id or category name is already in use, try again!");
+        }
+
     }
 
-    /**
-     * get all current categories
-     * @return - list of Objects
-     */
+
 
     public List<Category> getAllCategories() {
         return categoryRepo.findAll();
     }
 
-    /**
-     * get category by id
-     * @param id - String
-     * @return - Object
-     */
+
 
     public Category getCategoryById(String id) {
         return categoryRepo.findById(id).get();
     }
 
-    /**
-     * delete category by id
-     * @param id - String
-     * @return - String
-     */
+
 
     public String deleteCategoryById(String id) {
-        categoryRepo.deleteById(id);
-        return "Category with id " + id + " was deleted.";
+        Category existingCategory = categoryRepo.findById(id).orElse(null);
+
+        if (existingCategory != null) {
+            categoryRepo.deleteById(id);
+            return "Category with id " + id + " was deleted.";
+        } else {
+            throw new IllegalArgumentException("No category with that id");
+        }
+
     }
 
-    /**
-     * delete category by name
-     * @param name - String
-     * @return - String
-     */
 
     public String deleteCategoryByName(String name) {
-        categoryRepo.deleteByName(name);
-        return "Category: " + name + " was deleted.";
+        Category existingCategory = categoryRepo.deleteByName(name).orElse(null);
+
+        if (existingCategory != null) {
+            categoryRepo.deleteByName(name);
+            return "Category with name " + name + " was deleted.";
+        } else {
+            throw new IllegalArgumentException("No category with that name");
+        }
     }
 
 
-    /**
-     * Add a list of categories
-     * @param categories - list of Objects
-     * @return - list of Objects
-     */
-
     public List<Category> addCategories(List<Category> categories) {
-        return categoryRepo.saveAll(categories);
+        List<Category> allExistingCategories = categoryRepo.findAll();
+
+        boolean anyMatch = categories.stream()
+                .anyMatch(new HashSet<>(allExistingCategories)::contains);
+
+        if (anyMatch) {
+            throw new IllegalArgumentException("Check so no category names already exists");
+        } else {
+            return categoryRepo.saveAll(categories);
+        }
+
     }
 }

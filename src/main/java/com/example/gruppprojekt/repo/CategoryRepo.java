@@ -4,8 +4,11 @@ import com.example.gruppprojekt.model.Category;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CategoryRepo extends MongoRepository<Category,String> {
 
-    Category deleteByName(String name);
+    Optional<Category> deleteByName(String name);
+    Category findByName(String name);
 }
