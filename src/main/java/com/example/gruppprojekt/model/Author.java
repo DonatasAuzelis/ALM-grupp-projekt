@@ -10,9 +10,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -21,7 +22,7 @@ public class Author extends Person {
     @Id
     private String id;
     @CreatedDate
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
     @LastModifiedDate
-    private LocalDate lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 }

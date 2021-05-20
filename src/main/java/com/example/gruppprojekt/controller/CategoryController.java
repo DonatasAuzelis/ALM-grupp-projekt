@@ -16,26 +16,47 @@ public class CategoryController {
     CategoryService categoryService;
 
     @PostMapping("/add")
-    public ResponseEntity<Category> addCategory(@RequestBody Category category) {
+    public ResponseEntity<Object> addCategory(@RequestBody Category category) {
+        try {
+
+
         return ResponseEntity.ok(categoryService.addCategory(category));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
     @PostMapping("/addCategories")
-    public ResponseEntity<List<Category>> addCategories(@RequestBody List<Category> categories) {
+    public ResponseEntity<Object> addCategories(@RequestBody List<Category> categories) {
+        try {
+
+
         return ResponseEntity.ok(categoryService.addCategories(categories));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Category>> getAllCategories(){
+    public ResponseEntity<Object> getAllCategories(){
         return ResponseEntity.ok(categoryService.getAllCategories());
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteCategoryById(@PathVariable String id) {
+    public ResponseEntity<Object> deleteCategoryById(@PathVariable String id) {
+        try {
+
         return ResponseEntity.ok(categoryService.deleteCategoryById(id));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
     @PostMapping("/update/{id}")
     public ResponseEntity<Object> updateCategory(@RequestBody Category category, @PathVariable String id) {
+        try {
             return ResponseEntity.ok(categoryService.updateCategory(category,id));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }
