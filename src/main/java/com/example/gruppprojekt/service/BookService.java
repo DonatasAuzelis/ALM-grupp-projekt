@@ -2,6 +2,7 @@ package com.example.gruppprojekt.service;
 
 import com.example.gruppprojekt.model.Author;
 import com.example.gruppprojekt.model.Book;
+import com.example.gruppprojekt.repo.AuthorRepo;
 import com.example.gruppprojekt.repo.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,20 @@ public class BookService {
     @Autowired
     private BookRepo bookRepo;
 
+    @Autowired
+    private AuthorRepo authorRepo;
+
     /**
      * adds book object to repo
      * @param book Book object
      * @return book to be added
      */
-    public Book addBook(Book book) {
-       return bookRepo.save(book);
+    public Book addBook(Book book) throws Exception {
+        Book bookCheck = bookRepo.findBookByTitle(book.getTitle());
+        if (bookCheck == null) {
+            return bookRepo.save(book);
+        }
+       throw new Exception("Something went wrong, check if book already exists!");
     }
 
     /**
@@ -37,9 +45,13 @@ public class BookService {
      * @param id String book id
      * @return String confirmation of deleted book id
      */
-    public String deleteBookById(String id) {
-        bookRepo.deleteById(id);
-        return "Book with id: " + id + " was deleted!";
+    public String deleteBookById(String id) throws Exception {
+        Book bookCheck = bookRepo.findBookById(id);
+        if (bookCheck != null) {
+            bookRepo.deleteById(id);
+            return "Book with id: " + id + " was deleted!";
+        }
+        throw new Exception("Could find book with id: " + id + ", try again.");
     }
 
     /**
@@ -87,7 +99,11 @@ public class BookService {
      * @param title String
      * @return book with specified title
      */
-    public Book getBookByTitle(String title) {
-        return bookRepo.findBookByTitle(title);
+    public Book getBookByTitle(String title) throws Exception {
+        Book bookCheck = bookRepo.findBookByTitle(title);
+        if (bookCheck != null) {
+            return bookRepo.findBookByTitle(title);
+        }
+        throw new Exception("Something went wrong, double check the title!");
     }
 }
