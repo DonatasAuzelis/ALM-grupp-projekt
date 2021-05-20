@@ -45,8 +45,7 @@ public class AuthorService {
         return "Author deleted with " + id + " and named: " + author.getFirstName() + ", " + author.getLastName();
     }
 
-    /**
-     * updates an author
+     /** updates an author
      *
      * @param author Author object
      * @return updated Author object
