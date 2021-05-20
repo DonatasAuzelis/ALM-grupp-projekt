@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -37,8 +38,8 @@ class AuthorRepoTest {
 
     @BeforeEach
     public void setUp(){
-        Author author1=new Author("id1", LocalDate.now(),LocalDate.of(2021,6,7));
-        Author author2=new Author("id2", LocalDate.now(),LocalDate.of(2021,6,6));
+        Author author1=new Author("id1", LocalDateTime.now(),LocalDateTime.of(2021,6,7,0,0,0));
+        Author author2=new Author("id2", LocalDateTime.now(),LocalDateTime.of(2021,6,6,0,0,0));
 
         author1.setFirstName("ABC");
         author1.setLastName("ABC");
