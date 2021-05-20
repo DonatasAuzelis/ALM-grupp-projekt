@@ -17,7 +17,7 @@ public class AuthorService {
     /**
      * adds an author object
      *
-     * @param author
+     * @param author author object
      * @return author object
      */
     public Author addAuthor(Author author) {
@@ -56,7 +56,7 @@ public class AuthorService {
             author.setCreatedDate(authorInDb.get().getCreatedDate());
             return authorRepo.save(author);
         } else
-            throw new Exception("Author object is not in right format, check all its properties are in:" +
+            throw new Exception("Author is not in DataBase or author object is not in right format, check all its properties are in:" +
                     "\nId,firstName,lastName,dateOfBirth");
 
     }
