@@ -20,9 +20,9 @@ public class CategoryService {
 
 
     /**
-     *
-     * @param newCategory
-     * @return
+     * Adds new category if category with the same name doesnt already exist
+     * @param newCategory - Object
+     * @return - response message
      */
     public Category addCategory(Category newCategory) {
         Category existingCategory = categoryRepo.findByName(newCategory.getName());
@@ -38,6 +38,13 @@ public class CategoryService {
 
     }
 
+    /**
+     * updates category if the id exists already and the name doesn't already exist
+     *
+     * @param updatedCategory - Object
+     * @param id - String
+     * @return - response message
+     */
 
 
     public Category updateCategory(Category updatedCategory, String id) {
@@ -59,20 +66,36 @@ public class CategoryService {
 
     }
 
-
-
+    /**
+     * get all categories
+     * @return - response message
+     */
     public List<Category> getAllCategories() {
         return categoryRepo.findAll();
     }
 
 
-
+    /**
+     * finds category based on id if it exists
+     * @param id - String
+     * @return - response message
+     */
     public Category getCategoryById(String id) {
-        return categoryRepo.findById(id).get();
+        Category existingCategory = categoryRepo.findById(id).orElse(null);
+
+        if (existingCategory != null) {
+            return categoryRepo.findById(id).get();
+        } else {
+            throw new IllegalArgumentException("No category with that id");
+        }
     }
 
 
-
+    /**
+     * delete category based on id if id exists
+     * @param id - String
+     * @return - response message
+     */
     public String deleteCategoryById(String id) {
         Category existingCategory = categoryRepo.findById(id).orElse(null);
 
@@ -85,7 +108,11 @@ public class CategoryService {
 
     }
 
-
+    /**
+     * delete category based on name if a category with that name exists
+     * @param name - String
+     * @return - response message
+     */
     public String deleteCategoryByName(String name) {
         Category existingCategory = categoryRepo.deleteByName(name).orElse(null);
 
@@ -97,7 +124,11 @@ public class CategoryService {
         }
     }
 
-
+    /**
+     * adds multiple categories if the categories doesn't already exists
+     * @param categories - Objects
+     * @return - response message
+     */
     public List<Category> addCategories(List<Category> categories) {
         List<Category> allExistingCategories = categoryRepo.findAll();
 
