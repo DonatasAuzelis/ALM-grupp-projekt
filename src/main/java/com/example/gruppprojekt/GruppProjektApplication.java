@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 public class GruppProjektApplication {
 
     public static void main(String[] args) {
+        //System.setProperty("user.timezone", "Europe/Stockholm");
         SpringApplication.run(GruppProjektApplication.class, args);
     }
 

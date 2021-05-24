@@ -8,10 +8,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
+import org.springframework.data.mongodb.core.aggregation.DateOperators;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
 
 import java.time.Instant;
@@ -44,13 +46,18 @@ public class Users extends Person  {
     @DBRef
     private List<Book> books;
 
+    @PostConstruct
+    public void setTimeZone() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Stockholm"));
+    }
+
     @CreatedDate
-    private LocalDateTime createdDate;
+    private String createdDate;
     @LastModifiedDate
-    private LocalDateTime lastModifiedDate;
+    private String lastModifiedDate;
 
     public Users(String firstName, String lastName, String dateOfBirth, String id, Long personalNumber,
-                 String password, String email, List<Book> books, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+                 String password, String email, List<Book> books, String createdDate, String lastModifiedDate) {
         super(firstName, lastName, dateOfBirth);
         this.id = id;
         this.personalNumber = personalNumber;

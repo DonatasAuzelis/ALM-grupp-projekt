@@ -9,8 +9,10 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 /**
@@ -32,8 +34,8 @@ class UserRepositoryTest {
     void setUp() {
         user = new Users("firstName", "lastname", "date", "id",
                 123456789L, "pass", "email",
-                null, LocalDateTime.now(),
-                LocalDateTime.now());
+                null, new Date().toString(),
+                new Date().toString());
         repository.save(user);
     }
 
@@ -43,8 +45,12 @@ class UserRepositoryTest {
         Users expect = user;
         assertEquals(expect.getId(), actual.getId());
         assertEquals(expect.getPersonalNumber(), actual.getPersonalNumber());
+        assertEquals(expect.toString(),actual.toString());
+        assertEquals(expect.getCreatedDate(),actual.getCreatedDate());
+        System.out.println(expect.getCreatedDate());
+        System.out.println(actual.getCreatedDate());
+        System.out.println("**************************************************************");
     }
-
     @Test
     void findUsersByEmailOrPersonalNumberTest() {
         Users actual = repository.findUsersByEmailOrPersonalNumber(user.getEmail(), user.getPersonalNumber());
