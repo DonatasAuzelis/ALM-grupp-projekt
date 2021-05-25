@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -92,9 +93,7 @@ public class AuthorServiceTest {
 
         Author authorNoName = mockList.get(0);
         authorNoName.setFirstName(null);
-        assertThrows(Exception.class, () -> {
-            authorService.updateAuthor(authorNoName);
-        }, "author without name");
+        assertThrows(Exception.class, () -> authorService.updateAuthor(authorNoName), "author without name");
 
 
     }
@@ -106,9 +105,7 @@ public class AuthorServiceTest {
         Mockito.when(mockAuthorRepo.findById(mockList.get(0).getId())).thenReturn(java.util.Optional.ofNullable(mockList.get(0)));
         Author authorNotInDB = mockList.get(0);
         authorNotInDB.setId("NoIdInDB");
-        assertThrows(Exception.class, () -> {
-            authorService.updateAuthor(authorNotInDB);
-        }, "author not in db");
+        assertThrows(Exception.class, () -> authorService.updateAuthor(authorNotInDB), "author not in db");
 
     }
 
