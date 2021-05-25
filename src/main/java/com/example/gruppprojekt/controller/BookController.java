@@ -89,7 +89,7 @@ public class BookController {
      * @return book(s) by a specified author
      */
     @GetMapping("/getBooksByAuthor")
-    public ResponseEntity<Object> getBooksByAuthor(@RequestBody Author author ) {
+    public ResponseEntity<Object> getBooksByAuthor(@RequestBody Author author ) throws Exception {
         return ResponseEntity.ok(bookService.getBooksByAuthor(author));
     }
 

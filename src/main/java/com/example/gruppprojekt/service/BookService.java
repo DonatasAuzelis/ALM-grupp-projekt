@@ -101,7 +101,7 @@ public class BookService {
      */
     public Book getBookByTitle(String title) throws Exception {
         Book bookCheck = bookRepo.findBookByTitle(title);
-        if (bookCheck != null) {
+        if (bookCheck != null && bookCheck.getTitle().equals(title)) {
             return bookRepo.findBookByTitle(title);
         }
         throw new Exception("Something went wrong, double check the title!");
