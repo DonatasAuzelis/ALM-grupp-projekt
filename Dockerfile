@@ -4,8 +4,8 @@ ARG JAR_FILE=target/*.jar
 
 WORKDIR /myJavaDir
 
-COPY ${JAR_FILE} app.jar
+COPY ${JAR_FILE} library-app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar","library-app.jar"]

@@ -5,8 +5,8 @@ services:
     image: mongo
     ports:
       - 27017:27017
-        volumes:
-         - /data/db
+    volumes: # anger volumes på detta sätt
+      - db-data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -22,7 +22,7 @@ services:
       - mongo
 
   java-app:
-    image: java-app
+    image: library-app
     build: .
     ports:
       - 8080:8080
@@ -36,3 +36,7 @@ services:
       DB_HOST: mongo
       DB_PORT: 27017
       DB_NAME: db-prod
+
+volumes:
+  db-data:
+    driver: local
