@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -25,7 +26,7 @@ public class CategoryService {
      * @return - response message
      */
     public Category addCategory(Category newCategory) {
-        Category existingCategory = categoryRepo.findByName(newCategory.getName());
+        Category existingCategory = categoryRepo.findCategoryByName(newCategory.getName()).orElse(null);
 
         if (existingCategory != null) {
             throw new IllegalArgumentException("Category already exists");
@@ -48,10 +49,10 @@ public class CategoryService {
 
 
     public Category updateCategory(Category updatedCategory, String id) {
-        System.out.println(id); //kontrolleras senare
-        System.out.println(id.getClass());
+        //System.out.println(id); kontrolleras senare
+        //System.out.println(id.getClass());
         Category existingCategoryWithSameId = categoryRepo.findById(updatedCategory.getId()).orElse(null); //funkar inte via pathvariable
-        Category existingCategoryWithSameName = categoryRepo.findByName(updatedCategory.getName());
+        Category existingCategoryWithSameName = categoryRepo.findCategoryByName(updatedCategory.getName()).orElse(null);
 
 
         if (existingCategoryWithSameId != null && existingCategoryWithSameName == null) {
@@ -114,10 +115,10 @@ public class CategoryService {
      * @return - response message
      */
     public String deleteCategoryByName(String name) {
-        Category existingCategory = categoryRepo.deleteByName(name).orElse(null);
+        Category existingCategory = categoryRepo.findCategoryByName(name).orElse(null);
 
         if (existingCategory != null) {
-            categoryRepo.deleteByName(name);
+            categoryRepo.deleteCategoryByName(name);
             return "Category with name " + name + " was deleted.";
         } else {
             throw new IllegalArgumentException("No category with that name");
@@ -126,19 +127,26 @@ public class CategoryService {
 
     /**
      * adds multiple categories if the categories doesn't already exists
-     * @param categories - Objects
+     * @param newCategories - Objects
      * @return - response message
      */
-    public List<Category> addCategories(List<Category> categories) {
+    public String addCategories(List<Category> newCategories) {
         List<Category> allExistingCategories = categoryRepo.findAll();
 
-        boolean anyMatch = categories.stream()
+        boolean anyMatch = newCategories.stream()
                 .anyMatch(new HashSet<>(allExistingCategories)::contains);
 
         if (anyMatch) {
             throw new IllegalArgumentException("Check so no category names already exists");
         } else {
-            return categoryRepo.saveAll(categories);
+             categoryRepo.saveAll(newCategories);
+             String resp = "";
+             for (Category cat : newCategories) {
+                 resp = resp + cat.getName() + ", ";
+             }
+             resp = resp + "was added";
+             return resp;
+
         }
 
     }
