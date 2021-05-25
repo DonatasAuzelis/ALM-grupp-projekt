@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface CategoryRepo extends MongoRepository<Category,String> {
 
-    Optional<Category> deleteByName(String name);
-    Category findByName(String name);
+    Optional<Category> deleteCategoryByName(String name);
+    Optional<Category> findCategoryByName(String name);
 }
