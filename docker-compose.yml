@@ -22,7 +22,7 @@ services:
       - mongo
 
   java-app:
-    image: library-app
+    image: dxni/library-app:latest
     build: .
     ports:
       - 8080:8080
