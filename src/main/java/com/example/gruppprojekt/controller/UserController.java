@@ -59,7 +59,11 @@ public class UserController {
      */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable String id) {
-        return ResponseEntity.ok(userService.deleteUserById(id));
+        try {
+            return ResponseEntity.ok(userService.deleteUserById(id));
+        } catch (UserException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     /**

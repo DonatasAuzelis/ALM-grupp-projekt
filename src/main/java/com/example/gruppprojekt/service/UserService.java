@@ -51,11 +51,15 @@ public class UserService {
      * @param id String user id
      * @return String message in the response body
      */
-    public String deleteUserById(String id) {
-        Users u = repository.findById(id).get();
-        repository.deleteById(id);
-        return "User deleted with social security number: " + u.getPersonalNumber() +
-                "\n and named: " + u.getFirstName() + ", " + u.getLastName();
+    public String deleteUserById(String id) throws UserException {
+        Optional<Users> u = repository.findById(id);
+        if (u.isPresent()) {
+            Users existingUser = u.get();
+            repository.deleteById(id);
+            return "User deleted with social security number: " + existingUser.getPersonalNumber() +
+                    "\n and named: " + existingUser.getFirstName() + ", " + existingUser.getLastName();
+        }
+       throw new UserException("There is no user with this id number: " +id);
     }
 
     /**
@@ -70,8 +74,8 @@ public class UserService {
         if (u.isPresent()) {
             Users existingUser = u.get();
             if (!user.getPersonalNumber().equals(existingUser.getPersonalNumber()))
-                throw new UserException("You can't change your social security number\n*Must be the same as before*");
-            if (!Encrypt.getMd5(user.getPassword()).equals(existingUser.getPassword()))
+                throw new UserException("You can't change your social security number\n* Must be the same as before *");
+            if (user.getPassword()!=null && !Encrypt.getMd5(user.getPassword()).equals(existingUser.getPassword()))
                 existingUser.setPassword(Encrypt.getMd5(user.getPassword()));
             existingUser.setEmail(user.getEmail());
             existingUser.setFirstName(user.getFirstName());
