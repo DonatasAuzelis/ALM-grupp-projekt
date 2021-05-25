@@ -191,6 +191,30 @@ class UserServiceTest {
         //--------------------------------------------------------------------
         assertEquals(expected.getBooks(),actual.getBooks());
     }
+    @Test
+    @DisplayName("Remove all books-->Successful test")
+    void updateUserBooksTest1() throws UserException {
+        Mockito.when(repository.findById(any())).thenReturn(java.util.Optional.ofNullable(users.get(0)));
+        List<Book> books = new ArrayList<>(); // För att tomma book list
+
+        users.get(0).setBooks(books);
+        Users expected = users.get(0);
+        //--------------------------------------------------------------------
+        Mockito.when(repository.save(any())).thenReturn(users.get(0));
+        Users actual = userService.updateUserBooks(users.get(0).getId(),users.get(0).getBooks());
+        //--------------------------------------------------------------------
+        assertEquals(expected.getBooks(),actual.getBooks());
+    }
+    @Test
+    @DisplayName("UpdateUserBooks-->Given wrong user id should throw userException")
+    void updateUserBooksTest2(){
+        Mockito.when(repository.findById(any())).thenReturn(java.util.Optional.empty());
+        //--------------------------------------------------------------------
+        Mockito.when(repository.save(any())).thenReturn(users.get(0));
+        //--------------------------------------------------------------------
+        assertThrows(UserException.class,()->
+                userService.updateUserBooks(users.get(0).getId(),users.get(0).getBooks()));
+    }
     //************************************************************************************
     //******************************* USER AUTHENTICATION   ******************************
     //************************************************************************************
@@ -208,6 +232,17 @@ class UserServiceTest {
         assertEquals(expected.getPersonalNumber(),expected.getPersonalNumber());
         assertEquals(expected,actual);
     }
+    @Test
+    @DisplayName("User Authentication-->Given wrong info should throw user exception")
+    void userAuthenticationTest1() {
+        Mockito.when(repository.
+                findUsersByEmailAndPasswordOrPersonalNumberAndPassword(any(),any(),any(),any()))
+                .thenReturn(null);
+
+        assertThrows(UserException.class,()->
+                userService.UserAuthentication(users.get(0).getEmail(),users.get(0).getPersonalNumber(),
+                        users.get(0).getPassword()));
+    }
     //************************************************************************************
     //******************************* GET A USER BY PERSONAL NUMBER  *********************
     //************************************************************************************
@@ -218,5 +253,12 @@ class UserServiceTest {
         Users expected = users.get(0);
         Users actual = userService.getByPersonalNr(users.get(0).getPersonalNumber());
         assertEquals(expected,actual);
+    }
+    @Test
+    @DisplayName("Get a user by personal number-->Given wrong number should throw exception ")
+    void getByPersonalNrTest1(){
+        Mockito.when(repository.findUsersByPersonalNumber(any())).thenReturn(null);
+        assertThrows(UserException.class,()->
+                userService.getByPersonalNr(users.get(0).getPersonalNumber()));
     }
 }
