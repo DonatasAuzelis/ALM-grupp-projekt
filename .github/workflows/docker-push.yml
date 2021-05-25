@@ -27,7 +27,7 @@ jobs:
       - name: Run App
         run: mvn clean install
       - name: Run docker compose
-        run: docker compose up
+        run: docker-compose up -d
 
       - name: Docker login
         uses: docker/login-action@v1
