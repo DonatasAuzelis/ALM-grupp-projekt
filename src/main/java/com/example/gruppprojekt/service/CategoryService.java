@@ -27,16 +27,11 @@ public class CategoryService {
      */
     public Category addCategory(Category newCategory) {
         Category existingCategory = categoryRepo.findCategoryByName(newCategory.getName()).orElse(null);
-
         if (existingCategory != null) {
             throw new IllegalArgumentException("Category already exists");
         } else {
-            newCategory.setBooks(new ArrayList<>());
             return categoryRepo.save(newCategory);
         }
-
-
-
     }
 
     /**
@@ -57,8 +52,7 @@ public class CategoryService {
 
         if (existingCategoryWithSameId != null && existingCategoryWithSameName == null) {
             updatedCategory.setId(existingCategoryWithSameId.getId());
-            updatedCategory.setBooks(existingCategoryWithSameId.getBooks());
-            updatedCategory.setLastModifiedDate(LocalDate.now());
+//            updatedCategory.setLastModifiedDate(LocalDate.now());
             updatedCategory.setCreatedDate(existingCategoryWithSameId.getCreatedDate());
             return categoryRepo.save(updatedCategory);
         } else {

@@ -18,8 +18,6 @@ public class CategoryController {
     @PostMapping("/add")
     public ResponseEntity<Object> addCategory(@RequestBody Category category) {
         try {
-
-
         return ResponseEntity.ok(categoryService.addCategory(category));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

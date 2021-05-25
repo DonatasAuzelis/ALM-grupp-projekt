@@ -16,8 +16,6 @@ public class BookService {
     @Autowired
     private BookRepo bookRepo;
 
-    @Autowired
-    private AuthorRepo authorRepo;
 
     /**
      * adds book object to repo
@@ -51,7 +49,7 @@ public class BookService {
             bookRepo.deleteById(id);
             return "Book with id: " + id + " was deleted!";
         }
-        throw new Exception("Could find book with id: " + id + ", try again.");
+        throw new Exception("Couldn't find book with id: " + id + ", try again.");
     }
 
     /**
@@ -69,6 +67,7 @@ public class BookService {
             newBook.get().setTitle(book.getTitle());
             newBook.get().setPrice(book.getPrice());
             newBook.get().setPageCount(book.getPageCount());
+            newBook.get().setCategory(book.getCategory());
 
             return bookRepo.save(newBook.get());
         } else {

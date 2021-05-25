@@ -21,6 +21,9 @@ public class Book {
     private String id;
     @DBRef
     private Author author;
+    @DBRef
+    private Category category;
+
     private String title;
     private double price;
     private int pageCount;
