@@ -6,16 +6,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 @DataMongoTest
 class BookRepoTest {
 
@@ -49,6 +50,7 @@ class BookRepoTest {
     }
 
     @Test
+    @DirtiesContext
     @DisplayName("Test green if returns book list of correct author")
     void findBooksByAuthor() {
         List<Book> expected = mockBookRepo.findBooksByAuthor(mockAuthor1);
@@ -58,6 +60,7 @@ class BookRepoTest {
     }
 
     @Test
+    @DirtiesContext
     @DisplayName("Test green if returns book with correct title")
     void findBookByTitle() {
         Book expected = mockBookRepo.findBookByTitle(mockBookList.get(0).getTitle());
@@ -67,6 +70,7 @@ class BookRepoTest {
     }
 
     @Test
+    @DirtiesContext
     @DisplayName("Test green if returns book with correct id")
     void findBookById() {
         Book expected = mockBookRepo.findBookById(mockBookList.get(0).getId());
