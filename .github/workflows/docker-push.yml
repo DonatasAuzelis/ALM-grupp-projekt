@@ -26,6 +26,8 @@ jobs:
 
       - name: Run App
         run: mvn clean install
+      - name: Run docker compose
+        run: docker compose up
 
       - name: Docker login
         uses: docker/login-action@v1
@@ -36,7 +38,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          file: docker-compose.yml
           context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/library-app:latest
