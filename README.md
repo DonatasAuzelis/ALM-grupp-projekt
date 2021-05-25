@@ -6,7 +6,7 @@ Projekt kontrakt
 
 Spring Boot:
 
-Lombok
+Lombok \n
 Java doc
 Java 11
 Db : Mongo/Postgres
