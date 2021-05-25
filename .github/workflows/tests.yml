@@ -1,6 +1,7 @@
 name: Test CI 2
 
 on:
+  workflow_dispatch:
   push:
 
 
