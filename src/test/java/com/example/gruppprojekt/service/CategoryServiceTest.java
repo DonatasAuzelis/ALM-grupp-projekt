@@ -13,6 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,8 +41,8 @@ class CategoryServiceTest {
     @BeforeEach
     public void init() {
         openMocks(this);
-        Category c1 = new Category("10","Thriller",new ArrayList<>(), LocalDate.now(), LocalDate.now());
-        Category c2 = new Category("2","Romance",new ArrayList<>(), LocalDate.now(), LocalDate.now());
+        Category c1 = new Category("10","Thriller", new Date().toString(), new Date().toString());
+        Category c2 = new Category("2","Romance", new Date().toString(), new Date().toString());
         categories  = new ArrayList<>();
         categories.add(c1);
         categories.add(c2);
@@ -70,7 +71,7 @@ class CategoryServiceTest {
         @Test
         @DisplayName("Updates an existing category")
         void updateCategoryTest() {
-            Category updatedCategory = new Category("10","Fantasy",new ArrayList<>(), LocalDate.now(), LocalDate.now());
+            Category updatedCategory = new Category("10","Fantasy", new Date().toString(), new Date().toString());
             when(categoryRepo.findById(categories.get(0).getId())).thenReturn(java.util.Optional.ofNullable(categories.get(0)));
             when(categoryRepo.findCategoryByName(categories.get(0).getName())).thenReturn(java.util.Optional.ofNullable(categories.get(0)));
             when(categoryRepo.save(any())).thenReturn(updatedCategory);
@@ -152,8 +153,8 @@ class CategoryServiceTest {
         @Test
         @DisplayName("Add multiple categories")
         void addCategoriesTest() {
-            Category c3 = new Category("30","Drama",new ArrayList<>(), LocalDate.now(),LocalDate.now());
-            Category c4 = new Category("25","Comedy", new ArrayList<>(), LocalDate.now(),LocalDate.now());
+            Category c3 = new Category("30","Drama",new Date().toString(),new Date().toString());
+            Category c4 = new Category("25","Comedy", new Date().toString(),new Date().toString());
             List<Category> newCategories = new ArrayList<>();
             newCategories.add(c3);
             newCategories.add(c4);

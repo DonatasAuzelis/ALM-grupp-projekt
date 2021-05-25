@@ -21,10 +21,8 @@ public class Category {
     @Id
     private String id;
     private String name;
-    @DBRef
-    private List<Book> books;
     @CreatedDate
-    private LocalDate createdDate;
+    private String createdDate;
     @LastModifiedDate
-    private LocalDate lastModifiedDate;
+    private String lastModifiedDate;
 }
