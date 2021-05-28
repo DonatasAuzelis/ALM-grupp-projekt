@@ -8,12 +8,13 @@ Spring Boot:
 Lombok,
 Java doc,
 Java 11,
-Db : Mongo/Postgres
+Db : Mongo
 Packages:
 Controller,
 Model,
 Repository,
-Service
+Service,
+Utils
 
 Enhetstester:
 Unit5,
